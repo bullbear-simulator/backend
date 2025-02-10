@@ -39,4 +39,18 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body("JWT 토큰이 쿠키에 저장되었습니다.");
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("Authorization", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+
+        response.addCookie(cookie);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("로그아웃되었습니다.");
+    }
 }
